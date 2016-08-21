@@ -12,7 +12,6 @@ class BATTLETANK_API ATankAIController : public AAIController
 	GENERATED_BODY()
 
 private:
-	void BeginPlay() override;
 	void Tick(float DeltaSeconds) override;
 
 	UPROPERTY(EditDefaultsOnly)

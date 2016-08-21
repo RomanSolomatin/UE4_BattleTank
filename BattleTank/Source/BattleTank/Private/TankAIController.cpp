@@ -4,11 +4,6 @@
 #include "Tank.h"
 #include "TankAIController.h"
 
-void ATankAIController::BeginPlay()
-{
-	Super::BeginPlay();
-}
-
 void ATankAIController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
@@ -16,9 +11,8 @@ void ATankAIController::Tick(float DeltaSeconds)
 	auto ControlledTank = Cast<ATank>(GetPawn());
 	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
 
-	if (PlayerTank)
+	if (ensure(PlayerTank))
 	{
-		
 		// Move towards the player
 		MoveToActor(PlayerTank, AcceptanceRadius);
 		// Aim towards the player
