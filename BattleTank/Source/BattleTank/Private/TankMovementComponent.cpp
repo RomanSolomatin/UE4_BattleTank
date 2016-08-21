@@ -15,17 +15,14 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 {
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
-
-	// TODO Prevent double-speed
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
-
-	// TODO Prevent double-speed
 }
+
 void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
 {
 	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();

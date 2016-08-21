@@ -15,19 +15,10 @@ UTankAimingComponent::UTankAimingComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 }
 
-void UTankAimingComponent::SetBarrelReference(UTankBarrel* Barrel)
-{
-	this->Barrel = Barrel;
-}
-
-void UTankAimingComponent::SetTurretReference(UTankTurret* Turret)
-{
-	this->Turret = Turret;
-}
-
-
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
+	if (!Barrel) { return; }
+
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation("Projectile");
 
@@ -50,14 +41,26 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	}
 }
 
+void UTankAimingComponent::Initialise(UTankBarrel* Barrel, UTankTurret* Turret) {
+	this->Barrel = Barrel;
+	this->Turret = Turret;
+}
+
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
+	if (!Barrel || !Turret) { return; }
+
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 	Barrel->Elevate(DeltaRotator.Pitch);
-
-	auto CorrectedYaw = AimAsRotator.Yaw - BarrelRotator.Yaw;
-	Turret->Rotate(CorrectedYaw);
+	if (FMath::Abs(DeltaRotator.Yaw) < 180) 
+	{
+		Turret->Rotate(DeltaRotator.Yaw);
+	}
+	else 
+	{
+		Turret->Rotate(-DeltaRotator.Yaw);
+	}
 }
