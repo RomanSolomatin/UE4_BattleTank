@@ -16,6 +16,6 @@ private:
 	void Tick(float DeltaSeconds) override;
 
 	UPROPERTY(EditDefaultsOnly)
-	float AcceptanceRadius = 3000;
+	float AcceptanceRadius = 10;
 	
 };
