@@ -1,12 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BattleTank.h"
-#include "TankAimingComponent.h"
-#include "TankMovementComponent.h"
 #include "TankBarrel.h"
-#include "TankTurret.h"
-#include "Tank.h"
 #include "Projectile.h"
+#include "Tank.h"
 
 // Sets default values
 ATank::ATank()
@@ -15,10 +12,8 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 }
 
-void ATank::AimAt(FVector HitLocation)
-{
-	if (!ensure(TankAimingComponent)) { return; }
-	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
+void ATank::BeginPlay() {
+	Super::BeginPlay();
 }
 
 void ATank::Fire() 

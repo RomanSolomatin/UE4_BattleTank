@@ -4,12 +4,15 @@
 #include "AIController.h"
 #include "TankAIController.generated.h"
 
-class ATank;
+class UTankAimingComponent;
 
 UCLASS()
 class BATTLETANK_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
+
+public:
+	void BeginPlay() override;
 
 private:
 	void Tick(float DeltaSeconds) override;
@@ -17,4 +20,5 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	float AcceptanceRadius = 10;
 	
+	UTankAimingComponent* AimingComponent = nullptr;
 };
