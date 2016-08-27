@@ -14,11 +14,13 @@ class BATTLETANK_API ATankAIController : public AAIController
 public:
 	void BeginPlay() override;
 
+protected:
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float AcceptanceRadius = 8000;
+
 private:
 	void Tick(float DeltaSeconds) override;
 
-	UPROPERTY(EditDefaultsOnly)
-	float AcceptanceRadius = 10;
 	
 	UTankAimingComponent* AimingComponent = nullptr;
 };

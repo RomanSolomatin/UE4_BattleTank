@@ -30,8 +30,6 @@ private:
 	bool GetLookDirection(FVector2D ScreenLocation, FVector &LookDirection) const;
 	bool GetLookVectorHitDirection(FVector LookDirection, FVector &HitLocation) const;
 
-	UTankAimingComponent* AimingComponent = nullptr;
-
 	UPROPERTY(EditDefaultsOnly)
 	float CrosshairXLocation = 0.5;
 
