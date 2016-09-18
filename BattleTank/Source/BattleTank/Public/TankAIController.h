@@ -21,6 +21,10 @@ protected:
 private:
 	void Tick(float DeltaSeconds) override;
 
+	void SetPawn(APawn* Pawn) override;
 	
 	UTankAimingComponent* AimingComponent = nullptr;
+
+	UFUNCTION()
+	void OnTankDeath();
 };

@@ -3,6 +3,7 @@
 #include "BattleTank.h"
 #include "TankAimingComponent.h"
 #include "TankPlayerController.h"
+#include "Tank.h"
 
 void ATankPlayerController::BeginPlay()
 {
@@ -10,6 +11,16 @@ void ATankPlayerController::BeginPlay()
 	if (GetPawn()) {}
 	UTankAimingComponent* AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	FoundAimingComponent(AimingComponent);
+}
+
+void ATankPlayerController::SetPawn(APawn* Pawn) {
+	Super::SetPawn(Pawn);
+	if (Pawn)
+	{
+		ATank* PossessedTank = Cast<ATank>(Pawn);
+		if (!ensure(PossessedTank)) { return; }
+		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnTankDeath);
+	}
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -80,3 +91,7 @@ bool ATankPlayerController::GetLookVectorHitDirection(FVector LookDirection, FVe
 	return false;
 }
 
+void ATankPlayerController::OnTankDeath()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Tank death broadcasted to PlayerController"));
+}

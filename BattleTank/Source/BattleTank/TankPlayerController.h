@@ -30,6 +30,11 @@ private:
 	bool GetLookDirection(FVector2D ScreenLocation, FVector &LookDirection) const;
 	bool GetLookVectorHitDirection(FVector LookDirection, FVector &HitLocation) const;
 
+	void SetPawn(APawn* Pawn) override;
+
+	UFUNCTION()
+	void OnTankDeath();
+
 	UPROPERTY(EditDefaultsOnly)
 	float CrosshairXLocation = 0.5;
 
@@ -39,3 +44,4 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	int32 LineTraceRange = 1000000;
 };
+
